@@ -1,8 +1,8 @@
 <template>
            <!-- Actions Section -->
         <section class="actions-section">
-          <button id="btnNuevoPermiso" class="btn primary">
-            <i class="ri-add-line"></i> Generar Nueva Orden
+          <button id="btnNuevoPermiso">
+            <i ></i> Generar Nueva Orden
           </button>
 
           <!-- Botón específico para exportar desde la vista Crear-PT -->
