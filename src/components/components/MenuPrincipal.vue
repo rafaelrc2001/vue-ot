@@ -3,11 +3,7 @@
             <div class="sidebar-header">
                 <h2 class="logo-container">
 
-                    
-                    <img src="/img/logo blanco.png" alt="Usuario" />
-                
-                    <img src="/img/fuego_logo.png" alt="Usuario" />
-                    
+          
                 </h2>
                 <button >
                     <i ></i>
