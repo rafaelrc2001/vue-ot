@@ -1,4 +1,5 @@
 <template>
+    
   <!-- Actions Section -->
   <section class="actions-section">
     <button id="btnNuevoPermiso" @click="$emit('nuevo-orden')">

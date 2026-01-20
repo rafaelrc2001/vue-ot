@@ -1,16 +1,13 @@
-
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../components/views/LoginView.vue';
-import AutorizarOT from '../components/views/AutorizarOT.vue';
-import CrearOTView from '../components/views/CrearOTView.vue';
 import auth from '../components/services/authServices.vue';
+import PrincipalView from '../components/views/PrincipalView.vue';
 
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: LoginView },
-  { path: '/dashboard', component: AutorizarOT, meta: { requiresAuth: true } },
-  { path: '/crear-ot', component: CrearOTView, meta: { requiresAuth: true } },
-  { path: '/autorizar-ot', component: AutorizarOT, meta: { requiresAuth: true } },
+  { path: '/principal', component: PrincipalView, meta: { requiresAuth: true } },
+  { path: '/dashboard', component: PrincipalView, meta: { requiresAuth: true } }, // <--- Agrega esta línea
 ];
 
 const router = createRouter({
