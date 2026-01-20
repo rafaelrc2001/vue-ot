@@ -10,18 +10,17 @@
                     <i ></i>
                 </button>
             </div>
-            <nav >
+            <nav>
                 <ul>
                     <li>
-                    <a href="#"
-                        ><i></i> <span>Tablero</span></a
-                    >
+                        <router-link to="/dashboard">
+                            <i></i> <span>Tablero</span>
+                        </router-link>
                     </li>
                     <li>
-                    <a href="#"
-                        ><i></i>
-                        <span>Ordenes</span></a
-                    >
+                        <router-link to="/crear-ot">
+                            <i></i> <span>Ordenes</span>
+                        </router-link>
                     </li>
                 </ul>
             </nav>
