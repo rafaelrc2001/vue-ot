@@ -1,7 +1,13 @@
 <template>
   <div class="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
     <div class="flex flex-1 gap-2 md:justify-start">
-      <button class="btn btn-outline btn-primary">Crear orden</button>
+      <button
+        v-if="authStore.role === 'usuario' || authStore.role === 'departamento'"
+        class="btn btn-outline btn-primary"
+      >
+        Crear orden
+      </button>
+
       <button class="btn btn-outline btn-secondary">exportar csv</button>
     </div>
     <div class="flex flex-1 gap-2 items-center justify-center">
@@ -31,3 +37,10 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
+const router = useRouter()
+</script>

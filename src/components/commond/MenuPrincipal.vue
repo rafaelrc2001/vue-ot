@@ -1,14 +1,16 @@
 <template>
   <div
+    v-if="authStore.role"
     class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64"
   >
+    <div class="p-2 text-xs text-right w-full text-gray-500">
+      Rol actual: <b>{{ authStore.role }}</b>
+    </div>
     <!-- Sidebar content here -->
     <ul class="menu w-full grow">
-      <!-- List item -->
-
+      <!-- Graficas: siempre visible -->
       <li>
         <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-          <!-- Home icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -28,36 +30,12 @@
         </button>
       </li>
 
-      <li>
-        <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
-          <!-- Settings icon -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2"
-            fill="none"
-            stroke="currentColor"
-            class="my-1.5 inline-block size-4"
-          >
-            <path d="M20 7h-9"></path>
-            <path d="M14 17H5"></path>
-            <circle cx="17" cy="17" r="3"></circle>
-            <circle cx="7" cy="7" r="3"></circle>
-          </svg>
-          <span class="is-drawer-close:hidden">
-            <router-link to="/about">Mis ordenes</router-link></span
-          >
-        </button>
-      </li>
-
-      <li>
+      <!-- Mis ordenes: usuario, departamento -->
+      <li v-if="authStore.role === 'usuario' || authStore.role === 'departamento'">
         <button
           class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Tabla principal"
+          data-tip="Mis ordenes"
         >
-          <!-- Settings icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -74,14 +52,17 @@
             <circle cx="7" cy="7" r="3"></circle>
           </svg>
           <span class="is-drawer-close:hidden">
-            <router-link to="/tabla-principal">Autorizadas</router-link></span
-          >
+            <router-link to="/about">Mis ordenes</router-link>
+          </span>
         </button>
       </li>
 
-      <li>
-        <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Formulario">
-          <!-- Settings icon -->
+      <!-- Autorizadas: departamento, supervisor -->
+      <li v-if="authStore.role === 'departamento' || authStore.role === 'supervisor'">
+        <button
+          class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Autorizadas"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -98,12 +79,52 @@
             <circle cx="7" cy="7" r="3"></circle>
           </svg>
           <span class="is-drawer-close:hidden">
-            <router-link to="/formulario">Formulario</router-link></span
+            <router-link to="/tabla-principal">Autorizadas</router-link>
+          </span>
+        </button>
+      </li>
+
+      <!-- Autorizaciones: jefe supervisor (solo este nombre) -->
+      <li v-if="authStore.role === 'jefe' || authStore.role === 'supervisor'">
+        <button
+          class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Autorizaciones"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            fill="none"
+            stroke="currentColor"
+            class="my-1.5 inline-block size-4"
           >
+            <path d="M20 7h-9"></path>
+            <path d="M14 17H5"></path>
+            <circle cx="17" cy="17" r="3"></circle>
+            <circle cx="7" cy="7" r="3"></circle>
+          </svg>
+          <span class="is-drawer-close:hidden">
+            <router-link to="/tabla-principal">Autorizaciones</router-link>
+          </span>
         </button>
       </li>
     </ul>
+    <div class="w-full mt-auto p-4">
+      <button class="btn btn-error w-full" @click="logout">Salir</button>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
+const router = useRouter()
+
+function logout() {
+  authStore.logout()
+  router.replace({ name: 'login' })
+}
+</script>
